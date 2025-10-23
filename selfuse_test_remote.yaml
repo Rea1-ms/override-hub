@@ -301,6 +301,16 @@ rules:
   - RULE-SET,apple_cn_non_ip,DIRECT
   - RULE-SET,apple_services,苹果服务
   - RULE-SET,microsoft_non_ip,微软服务
+
+  # --- 新增规则：开始 ---
+  # 强制 reCAPTCHA 相关域名走“人工智能”组，解决验证码加载失败
+  - DOMAIN-SUFFIX,www.google.com,人工智能
+  - DOMAIN-SUFFIX,www.gstatic.com,人工智能
+  - IP-CIDR,142.250.0.0/16,人工智能
+  - DOMAIN-SUFFIX,openrouter.ai,人工智能
+  - DOMAIN-SUFFIX,cerebras.ai,人工智能
+  # --- 新增规则：结束 ---
+  
   - RULE-SET,ai_non_ip,人工智能
   - RULE-SET,global_non_ip,节点选择
   - RULE-SET,domestic_non_ip,DIRECT
