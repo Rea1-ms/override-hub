@@ -306,6 +306,7 @@ rules:
   # 强制 reCAPTCHA 相关域名走“人工智能”组，解决验证码加载失败
   - DOMAIN-SUFFIX,www.google.com,人工智能
   - DOMAIN-SUFFIX,www.gstatic.com,人工智能
+  - DOMAIN-SUFFIX,googleapis.com,人工智能
   - IP-CIDR,142.250.0.0/16,人工智能
   - DOMAIN-SUFFIX,openrouter.ai,人工智能
   - DOMAIN-SUFFIX,cerebras.ai,人工智能
