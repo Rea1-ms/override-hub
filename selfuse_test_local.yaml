@@ -47,8 +47,8 @@ sniffer:
 ### Tunnel配置
 tun:
   enable: false
-  stack: system
-  device: Ethernet 99
+  stack: mixed
+  device: meta
   auto-route: true
   auto-detect-interface: true
   dns-hijack:
