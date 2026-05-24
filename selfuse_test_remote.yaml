@@ -62,9 +62,11 @@ dns:
     - https://dns.alidns.com/dns-query
     - https://doh.pub/dns-query
 
-  # 6. 直连出口专用解析：显式指定 DIRECT 规则的流量使用系统原生的 DNS 解析
+  # 6. 直连出口专用解析
+  # 这里不能写 system，安卓上会去寻找并不存在的 /etc/resolv.conf，导致解析失败
   direct-nameserver:
-    - system
+    - 223.5.5.5
+    - 119.29.29.29
   direct-nameserver-follow-policy: false
 
 ### 域名嗅探
