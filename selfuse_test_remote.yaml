@@ -7,7 +7,7 @@ log-level: warning
 ipv6: false
 find-process-mode: strict
 ### 如果使用的是裸核，需要将下面的注释去掉，方便ui界面的使用
-# external-controller: 0.0.0.0:9988
+external-controller: 127.0.0.1:9097
 # external-ui: ui
 # external-ui-url: 'https://mirrors.seaya.link/https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip'
 # secret: "114514yijiuyijiubayiling"
@@ -21,27 +21,51 @@ keep-alive-idle: 180
 
 ### DNS配置
 dns:
-    enable: true
-    listen: 0.0.0.0:1053
-    ipv6: false
-    prefer-h3: true
-    enhanced-mode: fake-ip
-    use-hosts: true
-    use-system-hosts: true
-    # 1. 默认 DNS 改为国外加密 DoH，防止国外域名解析请求泄露给国内运营商
-    nameserver:
-      - https://cloudflare-dns.com/dns-query
-      - https://dns.google/dns-query
-    fake-ip-range: 198.18.0.1/16
-    fake-ip-filter: [ 'rule-set:fakeip-filter,trackerslist,private,cn' ]
-    # 2. 严格分流策略
-    nameserver-policy:
-      # 广告、垃圾垃圾域名拦截机制
-      'rule-set:reject_non_ip,reject_domainset,reject_non_ip_drop,reject_non_ip_no_drop': [ 'rcode://success' ]
-      # 国内域名和私有局域网直接走国内大厂 DoH，保证速度
-      'rule-set:cn,private':
-        - https://dns.alidns.com/dns-query
-        - https://doh.pub/dns-query
+  enable: true
+  cache-algorithm: arc # 启用自适应替换缓存算法
+  prefer-h3: true # 开启 DoH 的 HTTP/3 优先
+  respect-rules: false # fake-ip 模式下保持 false，避免 DNS 请求陷入路由死循环
+  listen: 0.0.0.0:1053
+  ipv6: false # 丢弃 AAAA 解析，防止因运营商内网 IPv6 导致的 DNS 绕过泄露
+  use-hosts: true
+  use-system-hosts: true
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+
+  # 1. 默认 DNS（必须为 IP）
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+
+  # 2. 默认解析服务器：全部使用国外加密 DoH
+  nameserver:
+    - https://cloudflare-dns.com/dns-query
+    - https://dns.google/dns-query
+
+  # 3. 虚假 IP 过滤器：合并了你的本地局域网通配符与 selfproxy 模板的规则集
+  fake-ip-filter:
+    - "*.lan"
+    - "rule-set:fakeip-filter,trackerslist,private,cn"
+
+  # 4. 定向解析策略：让国内域名、局域网和垃圾拦截各司其职
+  nameserver-policy:
+    # 拦截规则：命中直接返回成功而不转交公网，节省网络资源
+    "rule-set:reject_non_ip,reject_domainset,reject_non_ip_drop,reject_non_ip_no_drop":
+      ["rcode://success"]
+    # 国内和私有域名：绑定国内 DoH 保证速度
+    "rule-set:cn,private":
+      - https://dns.alidns.com/dns-query
+      - https://doh.pub/dns-query
+
+  # 5. 节点域名专用解析：防止节点域名被 fake-ip 误污染，直接使用国内 DoH 解析
+  proxy-server-nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+
+  # 6. 直连出口专用解析：显式指定 DIRECT 规则的流量使用系统原生的 DNS 解析
+  direct-nameserver:
+    - system
+  direct-nameserver-follow-policy: false
 
 ### 域名嗅探
 sniffer:
