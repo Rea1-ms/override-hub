@@ -20,6 +20,8 @@ keep-alive-interval: 15
 keep-alive-idle: 180
 
 ### DNS配置
+clash-for-android:
+  append-system-dns: false
 dns:
     enable: true
     cache-algorithm: arc # 启用自适应替换缓存算法
