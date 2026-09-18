@@ -299,6 +299,8 @@ rules:
   - RULE-SET,reject_domainset,REJECT
   - RULE-SET,reject_non_ip_drop,REJECT-DROP
   - RULE-SET,reject_non_ip_no_drop,REJECT
+  - DOMAIN-SUFFIX,anyrouter.top,人工智能
+  - DOMAIN-SUFFIX,agentrouter.org,人工智能
   - RULE-SET,ai_non_ip,人工智能
   - RULE-SET,stream_non_ip,国外媒体
   - RULE-SET,telegram_non_ip,电报信息
