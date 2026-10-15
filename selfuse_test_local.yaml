@@ -294,6 +294,17 @@ rule-providers:
 
 ### 分流规则
 rules:
+  # 游戏登录相关地址直连，优先于订阅规则
+  - DOMAIN,global-auni.checktrustworthiness.com,DIRECT
+  - DOMAIN,cbsipv4.checktrustworthiness.com,DIRECT
+  - IP-CIDR,74.125.204.188/32,DIRECT,no-resolve
+  - IP-CIDR,121.199.198.201/32,DIRECT,no-resolve
+  - IP-CIDR,120.26.149.174/32,DIRECT,no-resolve
+  - IP-CIDR,116.62.51.198/32,DIRECT,no-resolve
+  - IP-CIDR,101.126.26.141/32,DIRECT,no-resolve
+  - IP-CIDR,43.129.255.199/32,DIRECT,no-resolve
+  - IP-CIDR,106.11.43.194/32,DIRECT,no-resolve
+
   # 非 IP 类规则
   - RULE-SET,reject_non_ip,REJECT
   - RULE-SET,reject_domainset,REJECT
