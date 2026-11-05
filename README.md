@@ -14,6 +14,8 @@
 
   - [selfuse_test_remote.yaml](https://raw.githubusercontent.com/Seameee/override-hub/refs/heads/main/selfuse_test_remote.yaml) 和 [selfuse_test_local.yaml](https://raw.githubusercontent.com/Seameee/override-hub/refs/heads/main/selfuse_test_local.yaml),之前的配置已不再更新,请使用这两个
 
+中国大陆地址规则已改用 DustinWin（规则维护者）的 cnip.mrs（中国大陆地址规则）。旧合并任务已停用，原脚本和规则文件保留作历史参考。
+
 ### Shadowrocket 配置
 Shadowrocket 用户可以使用这个配置文件,与 mihomo 配置分组和分流基本相同
 [Shadowrocket.conf](https://github.com/Seameee/override-hub/blob/main/Shadowrocket.conf)

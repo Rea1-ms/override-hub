@@ -1,15 +1,12 @@
-name: Merge CN IPs
+# 中国大陆地址规则已改用外部规则源，旧合并流程仅供历史参考。
+name: 中国大陆地址合并（已停用）
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
-  schedule:
-    - cron: '0 0 * * *' # Runs at midnight UTC every day
 
 jobs:
   merge-ips:
+    if: ${{ false }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
