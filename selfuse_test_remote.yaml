@@ -251,6 +251,10 @@ rule-providers:
 
 ### 分流规则
 rules:
+  # 静态资源域名直连，优先于订阅规则
+  - DOMAIN-SUFFIX,staticfile.net,DIRECT
+  - DOMAIN-SUFFIX,bootcdn.net,DIRECT
+
   # 游戏登录相关地址直连，优先于订阅规则
   - DOMAIN,global-auni.checktrustworthiness.com,DIRECT
   - DOMAIN,cbsipv4.checktrustworthiness.com,DIRECT
